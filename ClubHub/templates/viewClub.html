@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="Header">
+    <h1>{{ club.name }}</h1>
+</div><br>
+<div id="ItemList">
+{% for member in members %}
+    <div class="member">
+        <span>{{ member.name }} --- {{ member.email }}</span>
+    </div>
+{% endfor %}
+<br>
+</div>
+{% endblock %}

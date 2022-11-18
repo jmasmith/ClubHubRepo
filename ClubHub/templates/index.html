@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="Header">
+  <h1>Clubs</h1>
+</div><br>
+<div id="ItemList">
+  {% for club in club_list %}
+  <div class="club">
+      <span>{{ club.name }} --- {{ club.type }} --- 
+        {% set memberarray = club.members.split(" ") %}
+        {% if current_user.id|string() in memberarray %}
+          <a href="#">Leave</a> ---
+        {% else %}
+          <a href="/join/{{club.id}}">Join</a> ---
+        {% endif %}
+        {% if current_user.email == 'jmasmith@gmail.com' %}<a href="/delete/{{club.id}}">Delete</a> ---{% endif %}
+      </span>
+      {% if club.members != "" %}
+      <span> 
+        Club Members: {{ club.members }}
+      </span>
+      {% endif %}
+  </div>
+  {% endfor %}
+  <br>
+
+</div>
+<div id="Buttons">
+  <form id="createClub" action="/NewClub"><button form="createClub">Create Club</button></form>
+</div>
+{% endblock %}
