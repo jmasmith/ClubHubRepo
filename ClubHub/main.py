@@ -31,10 +31,13 @@ def viewClub(clubID):
 @main.route("/join/<int:clubID>", methods=['GET','POST'])
 def joinClub(clubID):
     club = db.session.query(Club).filter(Club.id == clubID).first()
+    memberList = splitMemberString(club.members)
     # add line to redirect home if club doesn't exist
     if(club.members == ""):
         club.members = str(current_user.id)
     # add code to redirect if user is already a member
+    elif(str(current_user.id) in memberList):
+        return redirect(url_for("main.index"))
     else:
         addtostring = " " + str(current_user.id)
         club.members += addtostring
