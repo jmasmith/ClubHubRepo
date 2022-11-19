@@ -10,7 +10,8 @@
       <span>{{ club.name }} --- {{ club.type }} --- 
         {% set memberarray = club.members.split(" ") %}
         {% if current_user.id|string() in memberarray %}
-          <a href="#">Leave</a> ---
+          <a href="/leave/{{club.id}}">Leave</a> ---
+          <a href="/club/{{club.id}}">View</a> ---
         {% else %}
           <a href="/join/{{club.id}}">Join</a> ---
         {% endif %}

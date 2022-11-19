@@ -24,9 +24,17 @@ User database, to then pass into a render_template function. You need a "members
 
 I made a viewClub template so you can test if it works.
 '''
+
 @main.route("/club/<int:clubID>")
 def viewClub(clubID):
-    pass
+    club = db.session.query(Club).filter(Club.id == clubID).first()
+    memberList = splitMemberString(club.members) 
+    users = db.session.query(User).all()
+    UsersList = []
+    for user in users:
+            if str(user.id) in memberList:
+                UsersList.append(user)
+    return render_template('viewClub.html', club = club, members = UsersList)
 
 @main.route("/join/<int:clubID>", methods=['GET','POST'])
 def joinClub(clubID):
@@ -50,9 +58,20 @@ Uses similar logic to joining clubs.
 
 I made a splitMemberString helper function at the top of this file.
 '''
-@main.route("/leave/<int:clubID>")
+@main.route("/leave/<int:clubID>", methods=['GET','POST'])
 def leaveClub(clubID):
-    pass
+    club = db.session.query(Club).filter(Club.id == clubID).first()
+    user_to_leave = current_user.id
+    memberList = splitMemberString(club.members)
+    if(str(user_to_leave) in memberList):
+        memberList.remove(str(user_to_leave))
+        newList = " ".join(memberList)
+        club.members = newList
+    else:
+        return redirect(url_for("main.index"))
+    db.session.commit()
+    return redirect(url_for("main.index"))
+
 
 @main.get("/NewClub")
 def create():
