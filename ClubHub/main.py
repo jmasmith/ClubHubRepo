@@ -24,7 +24,7 @@ User database, to then pass into a render_template function. You need a "members
 
 I made a viewClub template so you can test if it works.
 '''
-@main.route("/club/<int:clubID")
+@main.route("/club/<int:clubID>")
 def viewClub(clubID):
     pass
 
@@ -50,7 +50,7 @@ Uses similar logic to joining clubs.
 
 I made a splitMemberString helper function at the top of this file.
 '''
-@main.route("/leave/<int:clubID")
+@main.route("/leave/<int:clubID>")
 def leaveClub(clubID):
     pass
 
