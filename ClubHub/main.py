@@ -32,8 +32,8 @@ def viewClub(clubID):
     users = db.session.query(User).all()
     UsersList = []
     for user in users:
-            if str(user.id) in memberList:
-                UsersList.append(user)
+        if str(user.id) in memberList:
+            UsersList.append(user)
     return render_template('viewClub.html', club = club, members = UsersList)
 
 @main.route("/join/<int:clubID>", methods=['GET','POST'])
