@@ -8,16 +8,26 @@
     <title>Flask Auth Example</title>
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <style>
+        section {
+            overflow-x: hidden;
+        }
+    </style>
 </head>
 
 <body>
     <section>
         <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
             <div class="container-fluid">
-                <span class="navbar-brand mb-0 h1">ClubHub</span>
+                <span class="navbar-brand mb-0 h1 fs-1">ClubHub</span>
                 <ul class="navbar-nav">
+                    {% if request.path == "/" %}
                     <li class="nav-item">
-                        <a class="nav-link {% block homeActive %}{% endblock %}" href="{{ url_for('main.index') }}">Home</a>
+                        <a class="btn btn-success" href="/NewClub" role="button">Create a Club</a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('main.index') }}">Home</a>
                     </li>
                     {% if current_user.is_authenticated %}
                     <li class="nav-item">
