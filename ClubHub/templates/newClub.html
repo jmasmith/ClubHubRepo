@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>New Club</h1>
+<!--
+    Restructure and stylize New Club Page, LT-->
+<!--
+    
+<h1>Create New Club</h1>
 <form action="/add" method="post">
     <label for="clubname">Club Name:</label><br>
     <input type="text" id="clubname" name="clubname"><br>
@@ -9,4 +13,41 @@
     <input type="text" id="clubtype" name="clubtype"><br>
     <button type="submit">Add Club</button>
 </form>
+-->
+<div>
+    <div>
+
+        <div class="container col-xl-10 col-xxl-8 px-4 py-3">
+            <div class="row align-items-center g-lg-5 py-5">
+                <div class="col-md-10 mx-auto col-lg-5">
+                    <h3 class="text-center">Create New Club</h3>
+                    <form class="p-4 p-md-5 border rounded-3 bg-light" method="POST" action="/add">
+
+                        <div class="form-floating mb-3">
+                            <input type="text" name="clubname" class="form-control" id="clubname">
+                            <label for="clubname">Club Name:</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" name="clubtype" class="form-control" id="clubtype">
+                            <label for="clubtype">Club Type:</label>
+                        </div>
+                        
+                        <button class="w-100 btn btn-lg btn-primary" type="submit">Create</button>
+                        <!--
+                        <hr class="my-4">
+                        {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <div>
+                                {{ messages[0] }}
+                            </div>
+                        {% endif %}
+                        {% endwith %}
+                        -->
+                    </form>
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>
+
 {% endblock %}

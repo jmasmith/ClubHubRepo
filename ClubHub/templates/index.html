@@ -1,33 +1,142 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div id="Header">
-  <h1>Clubs</h1>
-</div><br>
-<div id="ItemList">
-  {% for club in club_list %}
-  <div class="club">
-      <span>{{ club.name }} --- {{ club.type }} --- 
+<!--
+  </div><br>
+  <div id="ItemList">
+    {% for club in club_list %}
+    <div class="club">
+      <span>{{ club.name }} --- {{ club.type }} ---
         {% set memberarray = club.members.split(" ") %}
         {% if current_user.id|string() in memberarray %}
-          <a href="/leave/{{club.id}}">Leave</a> ---
-          <a href="/club/{{club.id}}">View</a> ---
+        <a href="/leave/{{club.id}}">Leave</a> ---
+        <a href="/club/{{club.id}}">View</a> ---
         {% else %}
-          <a href="/join/{{club.id}}">Join</a> ---
+        <a href="/join/{{club.id}}">Join</a> ---
+
+        <a href="/club/{{club.id}}">View</a> ---
+
         {% endif %}
         {% if current_user.email == 'jmasmith@gmail.com' %}<a href="/delete/{{club.id}}">Delete</a> ---{% endif %}
       </span>
       {% if club.members != "" %}
-      <span> 
+      <span>
         Club Members: {{ club.members }}
       </span>
       {% endif %}
+    </div>
+    {% endfor %}
+    <br>
+
   </div>
-  {% endfor %}
-  <br>
+  <div id="Buttons">
+    <form id="createClub" action="/NewClub"><button form="createClub">Create Club</button></form>
+  </div>
+-->
+
+<div class="container-fluid text-center">
+  <div class="row gx-5">
+
+    <div class="col-3 col-sm-3">
+      <div class="sticky-top">
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <div class="container-fluid text-center">
+          <div class="text-center">
+            <div class="container">
+              <div id="Buttons">
+                <form id="createClub" action="/NewClub"><button form="createClub" class="btn btn-primary btn-lg">Create
+                    Club</button></form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col text-center">
+      <div class="container-sm text-center">
+        <h1>Your Feed</h1>
+        <hr class="my-4">
+      </div>
+      <div id="ItemList">
+        {% for club in club_list %}
+        <div class="club">
+          <div class="container">
+            <span>
+              <div class="card">
+                <img src="static\orange.png" class="card-img-top" alt="...">
+
+                <div class="card-body">
+                  <h5 class="card-title">{{ club.name }}</h5>
+                  <p class="card-text">{{ club.type }}</p>
+
+                  {% set memberarray = club.members.split(" ") %}
+                  {% if current_user.id|string() in memberarray %}
+                  <a href="/club/{{club.id}}" class="btn btn-dark">View</a>
+                  <a href="/leave/{{club.id}}" class="btn btn-warning">Leave</a>
+                  {% else %}
+                  <a href="/join/{{club.id}}" class="btn btn-dark">Join</a>
+                  <a href="/club/{{club.id}}" class="btn btn-dark">View</a>
+                  {% endif %}
+                  {% if current_user.email == 'jmasmith@gmail.com' %}
+                  <a href="/delete/{{club.id}}" class="btn btn-danger">Delete</a>
+                  {% endif %}
+                </div>
+              </div><br>
+            </span>
+          </div>
+          <!--
+          {% if club.members != "" %}
+          <span>
+            Club Members: {{ club.members }}
+          </span>
+          {% endif %}
+        -->
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="container-sm">
+        <h1>Your Clubs</h1>
+        <hr class="my-4">
+        <div id="ItemList">
+          {% for club in club_list %}
+          <div class="club">
+            {% set memberarray = club.members.split(" ") %}
+            {% if current_user.id|string() in memberarray %}
+
+            <span>
+              <div class="card">
+                <img src="static\orange.png" class="card-img-top" alt="...">
+
+                <div class="card-body">
+                  <h5 class="card-title">{{ club.name }}</h5>
+                  <p class="card-text">{{ club.type }}</p>
+
+                  {% set memberarray = club.members.split(" ") %}
+                  {% if current_user.id|string() in memberarray %}
+                  <a href="/club/{{club.id}}" class="btn btn-dark">View</a>
+                  <a href="/leave/{{club.id}}" class="btn btn-warning">Leave</a>
+                  {% else %}
+                  <a href="/join/{{club.id}}" class="btn btn-dark">Join</a>
+                  <a href="/club/{{club.id}}" class="btn btn-dark">View</a>
+                  {% endif %}
+                  {% if current_user.email == 'jmasmith@gmail.com' %}
+                  <a href="/delete/{{club.id}}" class="btn btn-danger">Delete</a>
+                  {% endif %}
+                </div>
+              </div><br>
+            </span>
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>
-<div id="Buttons">
-  <form id="createClub" action="/NewClub"><button form="createClub">Create Club</button></form>
-</div>
+
 {% endblock %}
