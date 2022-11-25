@@ -3,10 +3,14 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 
 db = SQLAlchemy()
+UPLOAD_FOLDER = 'ClubHub\static'
+ALLOWED_EXTENSIONS = {'png','jpg','jpeg','gif'}
 
 def create_app():
     app = Flask(__name__)
 
+
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
     app.config['SECRET_KEY'] = 'testing'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
 

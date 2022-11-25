@@ -1,9 +1,15 @@
+import os
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 from .models import Club, User
-from . import db
+from werkzeug.utils import secure_filename
+from . import db, ALLOWED_EXTENSIONS, UPLOAD_FOLDER
 
 main = Blueprint('main', __name__)
+
+def allowed_file(filename):
+    return '.' in filename and \
+        filename.rsplit('.',1)[1].lower() in ALLOWED_EXTENSIONS
 
 def splitMemberString(members):
     return members.split(" ")
@@ -81,7 +87,13 @@ def create():
 def add():
     cname = request.form.get("clubname")
     ctype = request.form.get("clubtype")
-    newClub = Club(name=cname,type=ctype,members="")
+    cimage = request.files['clubPic']
+    if(cimage.filename == ""):
+        newClub = Club(name=cname,type=ctype,members="",pictureName="orange.png")
+    else:
+        filename = secure_filename(cimage.filename)
+        cimage.save(os.path.join(UPLOAD_FOLDER, filename))
+        newClub = Club(name=cname,type=ctype,members="",pictureName=filename)
     db.session.add(newClub)
     db.session.commit()
     return redirect(url_for("main.index"))

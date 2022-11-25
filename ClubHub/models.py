@@ -7,6 +7,7 @@ class Club(db.Model):
     memberCount = db.Column(db.Integer)
     type = db.Column(db.String(100))
     members = db.Column(db.String(500))
+    pictureName = db.Column(db.String(500))
 
 class User(UserMixin,db.Model):
     id = db.Column(db.Integer, primary_key=True)
