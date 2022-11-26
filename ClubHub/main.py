@@ -119,8 +119,3 @@ def delete(clubID):
     db.session.commit()
     return redirect(url_for("main.index"))
 
-@main.route('/profile')
-@login_required
-def profile():
-    return render_template('profile.html', name=current_user.name)
-

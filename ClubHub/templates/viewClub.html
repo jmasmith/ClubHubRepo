@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% block title %}{{ club.name }}{% endblock %}
 {% block content %}
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -34,9 +34,7 @@
         {% endif %}
     </div>
     <div class="row">
-        <span class="border-bottom text-center">
-            <h1>{{ club.name }}</h1>
-        </span>
+        <span class=" my-2 border-bottom text-center display-1"><strong>{{ club.name }}</strong></span>
     </div><br><br>
     <div class="row text-center">
         <div class="col-3 text-center">
@@ -70,34 +68,14 @@
             </div><br><br><br>
         </div>
         <div class="col-3 text-center">
-            <div class="card-body">
-                <h1 class="card-title">Club Members</h1><br>
-                <div class="container">
-                    <div class="card">
-                        <div class="row g-2">
-                            <div class="col">
-                                <br>
-                                <h6>Name</h6>
-                                <hr class="my-4">
-                                {% for member in members %}
-                                <div class="member">
-                                    <div class="row g-2"><span>{{ member.name }}</span></div>
-                                </div>
-                                {% endfor %}
-                            </div>
-                            <div class="col">
-                                <br>
-                                <h6>E-Mail</h6>
-                                <hr class="my-4">
-                                {% for member in members %}
-                                <div class="member">
-                                    <div class="row g-5"><span>{{ member.email }}</span></div>
-                                </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <h1>Club Members</h1><br>
+            <div class="card">
+                <div class="card-header fw-bolder">Name - Email</div>
+                <ul class="list-group list-group-flush">
+                    {% for member in members %}
+                    <li class="list-group-item">{{member.name}} - {{member.email}}</li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
     </div>
