@@ -1,39 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-<!--
-  </div><br>
-  <div id="ItemList">
-    {% for club in club_list %}
-    <div class="club">
-      <span>{{ club.name }} --- {{ club.type }} ---
-        {% set memberarray = club.members.split(" ") %}
-        {% if current_user.id|string() in memberarray %}
-        <a href="/leave/{{club.id}}">Leave</a> ---
-        <a href="/club/{{club.id}}">View</a> ---
-        {% else %}
-        <a href="/join/{{club.id}}">Join</a> ---
-
-        <a href="/club/{{club.id}}">View</a> ---
-
-        {% endif %}
-        {% if current_user.email == 'jmasmith@gmail.com' %}<a href="/delete/{{club.id}}">Delete</a> ---{% endif %}
-      </span>
-      {% if club.members != "" %}
-      <span>
-        Club Members: {{ club.members }}
-      </span>
-      {% endif %}
-    </div>
-    {% endfor %}
-    <br>
-
-  </div>
-  <div id="Buttons">
-    <form id="createClub" action="/NewClub"><button form="createClub">Create Club</button></form>
-  </div>
--->
-
 <div class="container-fluid text-center my-4">
   <div class="row gx-5">
     <div class="col text-center">
@@ -49,6 +16,7 @@
           <div class="container">
             <span>
               <div class="card">
+                <!--CHANGE PATH BEFORE DEPLOY (MUST BE UNIX-FRIENDLY)-->
                 <img src="static\{{ club.pictureName }}" class="card-img-top" alt="...">
 
                 <div class="card-body">

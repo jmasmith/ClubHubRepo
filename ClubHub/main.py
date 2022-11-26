@@ -19,7 +19,6 @@ def index():
     if not current_user.is_authenticated:
         return redirect(url_for('auth.login'))
     club_list = db.session.query(Club).all()
-    # user_list = db.session.query(User).all()
     return render_template('index.html',club_list=club_list,user=current_user)
 
 '''
@@ -49,7 +48,6 @@ def joinClub(clubID):
     # add line to redirect home if club doesn't exist
     if(club.members == ""):
         club.members = str(current_user.id)
-    # add code to redirect if user is already a member
     elif(str(current_user.id) in memberList):
         return redirect(url_for("main.index"))
     else:
@@ -98,9 +96,25 @@ def add():
     db.session.commit()
     return redirect(url_for("main.index"))
 
+@main.route("/add_image/<int:clubID>", methods=['GET','POST'])
+def add_image(clubID):
+    club = db.session.query(Club).filter(Club.id == clubID).first()
+    cimage = request.files['clubPic']
+    if(cimage.filename == ""):
+        return redirect(url_for("main.viewClub", clubID=clubID))
+    else:
+        filename = secure_filename(cimage.filename)
+        cimage.save(os.path.join(UPLOAD_FOLDER, filename))
+        club.pictureName = filename
+    db.session.commit()
+    return redirect(url_for("main.viewClub", clubID=clubID))
+    
+
 @main.get("/delete/<int:clubID>")
 def delete(clubID):
     club = db.session.query(Club).filter(Club.id == clubID).first()
+    path = os.path.join(UPLOAD_FOLDER,club.pictureName)
+    os.remove(path)
     db.session.delete(club)
     db.session.commit()
     return redirect(url_for("main.index"))

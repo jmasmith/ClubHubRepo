@@ -1,37 +1,36 @@
 {% extends "base.html" %}
 
 {% block content %}
-<!--
-<div id="Header">
-    <h1>{{ club.name }}</h1>
-</div><br>
-<div id="ItemList">
-{% for member in members %}
-    <div class="member">
-        <span>{{ member.name }} --- {{ member.email }}</span>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Image</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!--Form below-->
+            <div class="modal-body">
+                <form id="addimage" class="p-4 p-md-5 border rounded-3 bg-light" enctype="multipart/form-data" method="POST" action="/add_image/{{club.id}}">
+                    <div class="form-floating mb-3">
+                        <input type="file" name="clubPic" class="form-control" id="clubPic">
+                        <label for="clubPic">Image:</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button form="addimage" class="btn btn-primary" type="submit">Submit</button>
+            </div>
+        </div>
     </div>
-{% endfor %}
-<br>
 </div>
--->
-<!--
-<div class="card">
-    <img src="\static\orange.png" class="fluid" alt="...">
-
-    <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-            content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
-</div>
--->
 <div class="container text-center">
+    <!--CHANGE PATHS BEFORE DEPLOY (MUST BE UNIX-FRIENDLY)-->
     <div class="row">
         {% if club.pictureName != "orange.png" %}
         <img src="\static\{{ club.pictureName }}" height="350" alt="" />
         {% else %}
-        <img src="\static\grey.jpg" height="350" alt="" />
+        <img src="\static\grey.jpg" height="350" width="100%" alt="" />
         {% endif %}
     </div>
     <div class="row">
@@ -46,12 +45,14 @@
                 Description placeholder, something something.
             </div><br><br><br>
             <div class="row">
-                <button class="w-100 btn btn-lg btn-primary" type="submit">Creat Event</button>
+                <button class="w-100 btn btn-lg btn-primary my-2" type="submit">Create Event</button>
+                {% if club.pictureName == "orange.png" %}<button class="w-100 btn btn-lg btn-primary my-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Banner Image</button>{% endif %}
             </div><br><br>
         </div>
         <div class="col text-center">
             <h1>Club Event Feed</h1>
             <div class="card">
+                <!--CHANGE PATH BEFORE DEPLOY (MUST BE UNIX-FRIENDLY)-->
                 <img src="\static\orange.png" class="img-thumbnail" alt="..." />
 
                 <div class="card-body">
@@ -71,7 +72,6 @@
         <div class="col-3 text-center">
             <div class="card-body">
                 <h1 class="card-title">Club Members</h1><br>
-                <!--<p class="card-text"></p>-->
                 <div class="container">
                     <div class="card">
                         <div class="row g-2">
