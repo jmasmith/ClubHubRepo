@@ -1,9 +1,11 @@
+import os.path
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 
 db = SQLAlchemy()
-UPLOAD_FOLDER = 'ClubHub\static'
+staticFolder = os.path.join('ClubHub','static')
+UPLOAD_FOLDER = staticFolder
 ALLOWED_EXTENSIONS = {'png','jpg','jpeg','gif'}
 
 def create_app():
