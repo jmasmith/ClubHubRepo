@@ -1,4 +1,4 @@
-import os.path
+'''import os.path
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
@@ -34,4 +34,4 @@ def create_app():
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
     
-    return app
+    return app'''

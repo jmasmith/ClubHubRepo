@@ -1,9 +1,9 @@
 import os
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required, current_user
-from .models import Club, User
+from ClubHub.models import Club, User
 from werkzeug.utils import secure_filename
-from .utils import db, ALLOWED_EXTENSIONS, UPLOAD_FOLDER
+from ClubHub.utils import db, ALLOWED_EXTENSIONS, UPLOAD_FOLDER
 
 main = Blueprint('main', __name__)
 
