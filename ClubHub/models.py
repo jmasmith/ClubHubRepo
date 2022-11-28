@@ -1,5 +1,5 @@
 from flask_login import UserMixin
-from ClubHub import db
+from .utils import db
 
 class Club(db.Model):
     id = db.Column(db.Integer, primary_key=True)
